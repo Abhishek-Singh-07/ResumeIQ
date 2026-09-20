@@ -328,6 +328,25 @@ The project has been tested for:
 * History limits
 * Production frontend build
 
+## Screenshots
+
+### Login & Registration
+
+![ResumeIQ Login](Screenshots/01-login.png)
+
+### Resume Analyzer Dashboard
+
+![ResumeIQ Dashboard](Screenshots/02-dashboard.png)
+
+### Resume Analysis Result
+
+![ResumeIQ Analysis Result](Screenshots/03-analysis-result.png)
+
+### Analysis History
+
+![ResumeIQ Analysis History](Screenshots/04-analysis-history.png)
+
+
 ## Current Limitations
 
 ResumeIQ uses a rule-based analysis engine rather than a machine-learning or generative-AI model.
