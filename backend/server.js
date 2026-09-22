@@ -4209,7 +4209,7 @@ app.use((error, req, res, next) => {
 // ==================================================
 
 const PORT =
-    5000;
+    process.env.PORT || 5000;
 
 
 async function startServer() {
@@ -4218,11 +4218,12 @@ async function startServer() {
 
 
     app.listen(
-        PORT,
-        () => {
+    PORT,
+    "0.0.0.0",
+    () => {
 
             console.log(
-                `Server running on http://localhost:${PORT}`
+                `Server running on port ${PORT}`
             );
 
         }

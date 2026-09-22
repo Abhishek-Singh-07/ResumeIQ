@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function Auth({ onLogin }) {
   const [mode, setMode] = useState("login");
 
@@ -11,7 +14,6 @@ function Auth({ onLogin }) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-
   // ==========================================
   // HANDLE AUTHENTICATION
   // ==========================================
@@ -21,7 +23,6 @@ function Auth({ onLogin }) {
 
     setMessage("");
     setError("");
-
 
     if (!email.trim()) {
       setError("Please enter your email.");
@@ -38,16 +39,13 @@ function Auth({ onLogin }) {
       return;
     }
 
-
     try {
       setLoading(true);
 
-
       const endpoint =
         mode === "register"
-          ? "http://localhost:5000/api/register"
-          : "http://localhost:5000/api/login";
-
+          ? `${API_BASE_URL}/api/register`
+          : `${API_BASE_URL}/api/login`;
 
       const body =
         mode === "register"
@@ -61,7 +59,6 @@ function Auth({ onLogin }) {
               password: password
             };
 
-
       const response = await fetch(endpoint, {
         method: "POST",
 
@@ -72,9 +69,7 @@ function Auth({ onLogin }) {
         body: JSON.stringify(body)
       });
 
-
       const data = await response.json();
-
 
       if (!response.ok) {
         setError(
@@ -82,7 +77,6 @@ function Auth({ onLogin }) {
         );
         return;
       }
-
 
       // ==========================================
       // SAVE LOGIN INFORMATION
@@ -95,7 +89,6 @@ function Auth({ onLogin }) {
         );
       }
 
-
       if (data.user) {
         localStorage.setItem(
           "resumeiq_user",
@@ -103,11 +96,9 @@ function Auth({ onLogin }) {
         );
       }
 
-
       setMessage(
         data.message || "Success"
       );
-
 
       // Clear form
 
@@ -115,13 +106,11 @@ function Auth({ onLogin }) {
       setEmail("");
       setPassword("");
 
-
       // Send user information to App
 
       if (onLogin && data.user) {
         onLogin(data.user);
       }
-
 
     } catch (error) {
 
@@ -139,7 +128,6 @@ function Auth({ onLogin }) {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="auth-container">
@@ -161,7 +149,6 @@ function Auth({ onLogin }) {
           </p>
 
         </div>
-
 
         {/* ==========================================
             LOGIN / REGISTER TABS
@@ -185,7 +172,6 @@ function Auth({ onLogin }) {
             Login
           </button>
 
-
           <button
             type="button"
             className={
@@ -203,7 +189,6 @@ function Auth({ onLogin }) {
           </button>
 
         </div>
-
 
         {/* ==========================================
             FORM
@@ -237,7 +222,6 @@ function Auth({ onLogin }) {
 
           )}
 
-
           {/* EMAIL */}
 
           <div className="form-group">
@@ -256,7 +240,6 @@ function Auth({ onLogin }) {
             />
 
           </div>
-
 
           {/* PASSWORD */}
 
@@ -277,7 +260,6 @@ function Auth({ onLogin }) {
 
           </div>
 
-
           {/* ERROR */}
 
           {error && (
@@ -288,7 +270,6 @@ function Auth({ onLogin }) {
 
           )}
 
-
           {/* SUCCESS */}
 
           {message && (
@@ -298,7 +279,6 @@ function Auth({ onLogin }) {
             </div>
 
           )}
-
 
           {/* SUBMIT */}
 
@@ -317,7 +297,6 @@ function Auth({ onLogin }) {
           </button>
 
         </form>
-
 
         {/* ==========================================
             SWITCH MODE

@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import "./index.css";
 import Auth from "./Auth";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 function App() {
   const [user, setUser] = useState(null);
 
@@ -12,7 +15,6 @@ function App() {
 
   const [history, setHistory] = useState([]);
   const [historyLoading, setHistoryLoading] = useState(false);
-
 
   // ==========================================
   // CHECK EXISTING LOGIN
@@ -37,7 +39,6 @@ function App() {
     }
   }, []);
 
-
   // ==========================================
   // FETCH HISTORY AFTER LOGIN
   // ==========================================
@@ -47,7 +48,6 @@ function App() {
       fetchHistory();
     }
   }, [user]);
-
 
   // ==========================================
   // FETCH ANALYSIS HISTORY
@@ -66,7 +66,7 @@ function App() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/api/history",
+        `${API_BASE_URL}/api/history`,
         {
           method: "GET",
           headers: {
@@ -101,7 +101,6 @@ function App() {
     }
   };
 
-
   // ==========================================
   // HANDLE LOGIN
   // ==========================================
@@ -109,7 +108,6 @@ function App() {
   const handleLogin = (loggedInUser) => {
     setUser(loggedInUser);
   };
-
 
   // ==========================================
   // LOGOUT
@@ -125,7 +123,6 @@ function App() {
     setResult(null);
     setHistory([]);
   };
-
 
   // ==========================================
   // VIEW SINGLE ANALYSIS
@@ -143,7 +140,7 @@ function App() {
       }
 
       const response = await fetch(
-        `http://localhost:5000/api/history/${id}`,
+        `${API_BASE_URL}/api/history/${id}`,
         {
           method: "GET",
           headers: {
@@ -185,7 +182,6 @@ function App() {
       );
     }
   };
-
 
   // ==========================================
   // ANALYZE RESUME
@@ -232,7 +228,7 @@ function App() {
       }
 
       const response = await fetch(
-        "http://localhost:5000/api/analyze",
+        `${API_BASE_URL}/api/analyze`,
         {
           method: "POST",
 
@@ -279,7 +275,6 @@ function App() {
     }
   };
 
-
   // ==========================================
   // SHOW LOGIN / REGISTER SCREEN
   // ==========================================
@@ -292,14 +287,12 @@ function App() {
     );
   }
 
-
   // ==========================================
   // MAIN DASHBOARD
   // ==========================================
 
   return (
     <div className="container">
-
 
       {/* ==========================================
           HEADER
@@ -320,7 +313,6 @@ function App() {
             </p>
 
           </div>
-
 
           <div className="user-area">
 
@@ -343,7 +335,6 @@ function App() {
         </div>
 
       </div>
-
 
       {/* ==========================================
           RESUME UPLOAD
@@ -381,7 +372,6 @@ function App() {
 
       </div>
 
-
       {/* ==========================================
           JOB DESCRIPTION
       ========================================== */}
@@ -415,7 +405,6 @@ function App() {
 
       </div>
 
-
       {/* ==========================================
           CURRENT ANALYSIS RESULT
       ========================================== */}
@@ -427,7 +416,6 @@ function App() {
           <h2>
             Resume Analysis Result
           </h2>
-
 
           {/* ==========================================
               FILE INFORMATION
@@ -447,7 +435,6 @@ function App() {
 
           )}
 
-
           {result.createdAt && (
 
             <p className="analysis-info">
@@ -464,7 +451,6 @@ function App() {
 
           )}
 
-
           {/* ==========================================
               ATS SCORE
           ========================================== */}
@@ -478,8 +464,7 @@ function App() {
             <div
               className="score-circle"
               style={{
-                "--score":
-                  `${result.atsScore}%`
+                "--score": `${result.atsScore}%`
               }}
             >
 
@@ -494,7 +479,6 @@ function App() {
             </div>
 
           </div>
-
 
           {/* ==========================================
               SCORE BREAKDOWN
@@ -525,7 +509,6 @@ function App() {
 
                 </div>
 
-
                 <div className="breakdown-item">
 
                   <span>
@@ -541,7 +524,6 @@ function App() {
 
                 </div>
 
-
                 <div className="breakdown-item">
 
                   <span>
@@ -556,7 +538,6 @@ function App() {
                   </strong>
 
                 </div>
-
 
                 <div className="breakdown-item">
 
@@ -578,7 +559,6 @@ function App() {
             </div>
 
           )}
-
 
           {/* ==========================================
               MATCHED SKILLS
@@ -620,7 +600,6 @@ function App() {
 
           </div>
 
-
           {/* ==========================================
               MISSING SKILLS
           ========================================== */}
@@ -660,7 +639,6 @@ function App() {
             </div>
 
           </div>
-
 
           {/* ==========================================
               MATCHED KEYWORDS
@@ -702,7 +680,6 @@ function App() {
 
           </div>
 
-
           {/* ==========================================
               MISSING KEYWORDS
           ========================================== */}
@@ -742,7 +719,6 @@ function App() {
             </div>
 
           </div>
-
 
           {/* ==========================================
               RESUME SECTIONS
@@ -789,7 +765,6 @@ function App() {
 
               </div>
 
-
               <div>
 
                 <h4>
@@ -827,7 +802,6 @@ function App() {
 
           </div>
 
-
           {/* ==========================================
               SUGGESTIONS
           ========================================== */}
@@ -858,7 +832,6 @@ function App() {
         </div>
 
       )}
-
 
       {/* ==========================================
           ANALYSIS HISTORY
@@ -910,7 +883,6 @@ function App() {
 
                   </div>
 
-
                   <div className="history-score">
 
                     <strong>
@@ -922,7 +894,6 @@ function App() {
                     </p>
 
                   </div>
-
 
                   <button
                     className="view-btn"
